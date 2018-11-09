@@ -63,7 +63,7 @@ public class Moves {
 								Board.getBoard()[p.r][cc].setDanger(p);
 						}
 					}else {
-						for(int i = 1;i<=n[0];i++)
+						for(int i = 1;i<=n[0] && p.c+i < Board.getBoard()[0].length;i++)
 							if(p.c+i < Board.getBoard()[0].length)
 								if(Board.getBoard()[p.r][p.c+i].getFill()) {
 									if(p.c+i+1 < Board.getBoard()[0].length && Board.getBoard()[p.r][p.c+i].getPiece() instanceof King)
@@ -86,7 +86,7 @@ public class Moves {
 							else
 								Board.getBoard()[rr][p.c].setDanger(p);
 					}else {
-						for(int i = 1;i<=n[1];i++)
+						for(int i = 1;i<=n[1] && p.r-i >=0;i++)
 							if(p.r-i >= 0)
 								if(Board.getBoard()[p.r-i][p.c].getFill()) {
 									if(p.r-i-1 >= 0 && Board.getBoard()[p.r-i][p.c].getPiece() instanceof King)
@@ -110,7 +110,7 @@ public class Moves {
 								Board.getBoard()[p.r][cc].setDanger(p);
 						}
 					}else {
-						for(int i = 1;i<=n[2];i++)
+						for(int i = 1;i<=n[2] && p.c-i>=0;i++)
 							if(p.c-i >= 0)
 								if(Board.getBoard()[p.r][p.c-i].getFill()) {
 									if(p.c-i-1 >=0 && Board.getBoard()[p.r][p.c-i].getPiece() instanceof King)
@@ -133,15 +133,15 @@ public class Moves {
 							else
 								Board.getBoard()[rr][p.c].setDanger(p);
 					}else {
-						for(int i = 1;i<=n[3];i++)
+						for(int i = 1;i<=n[3] && p.r+i<Board.getBoard().length;i++)
 							if(p.r+i < Board.getBoard().length)
 								if(Board.getBoard()[p.r+i][p.c].getFill()) {
-									if(p.r+i+1 < Board.getBoard().length && Board.getBoard()[p.r-i][p.c].getPiece() instanceof King)
-					                    Board.getBoard()[p.r-i-1][p.c].setDanger(p);
+									if(p.r+i+1 < Board.getBoard().length && Board.getBoard()[p.r+i][p.c].getPiece() instanceof King)
+					                    Board.getBoard()[p.r+i+1][p.c].setDanger(p);
 					                break;
 								}
 								else
-									Board.getBoard()[p.r-i][p.c].setDanger(p);
+									Board.getBoard()[p.r+i][p.c].setDanger(p);
 					}
 				}	
 			}, bf ->  { //UPDATING HIDDEN BOARD
@@ -233,12 +233,12 @@ public class Moves {
 						for(int i = 1;i<=n[3];i++)
 							if(p.r+i < Board.getDangerBoard().length)
 								if(Board.getDangerBoard()[p.r+i][p.c].getFill()) {
-									if(p.r+i+1 < Board.getDangerBoard().length && Board.getDangerBoard()[p.r-i][p.c].getPiece() instanceof King)
-					                    Board.getDangerBoard()[p.r-i-1][p.c].setDanger(p);
+									if(p.r+i+1 < Board.getDangerBoard().length && Board.getDangerBoard()[p.r+i][p.c].getPiece() instanceof King)
+					                    Board.getDangerBoard()[p.r+i+1][p.c].setDanger(p);
 					                break;
 								}
 								else
-									Board.getDangerBoard()[p.r-i][p.c].setDanger(p);
+									Board.getDangerBoard()[p.r+i][p.c].setDanger(p);
 					}
 				}
 				
@@ -260,16 +260,16 @@ public class Moves {
 			        }
 				}else {
 					for(int i = 1;i<=n[1];i++){
-			            if(p.isValidMove(p.r-i,p.c))
-			                if(Board.getBoard()[p.r-i][p.c].getFill() == true){
-			                    if(Board.getBoard()[p.r-i][p.c].getPiece().getTeam() != p.team){
+			            if(p.isValidMove(p.r+i,p.c))
+			                if(Board.getBoard()[p.r+i][p.c].getFill() == true){
+			                    if(Board.getBoard()[p.r+i][p.c].getPiece().getTeam() != p.team){
 			                        return true;
 			                    }
 			                    break;
 			                }else{
 			                    return true;
 			                }
-			            else if(Board.getBoard()[p.r-i][p.c].getFill() == true)
+			            else if(Board.getBoard()[p.r+i][p.c].getFill() == true)
 			                break;
 			        }
 				}
@@ -330,7 +330,7 @@ public class Moves {
 				                }else{
 				                    return true;
 				                }
-				            else if(Board.getBoard()[p.r][p.c-i].getFill() == true)
+				            else if(p.c-i >= 0 &&Board.getBoard()[p.r][p.c-i].getFill() == true)
 				                break;
 				        }
 				   }
@@ -362,7 +362,7 @@ public class Moves {
 				                }else{
 				                    return true;
 				                }
-				            else if(Board.getBoard()[p.r][p.c+i].getFill() == true)
+				            else if(p.c+i < Board.getBoard()[0].length&& Board.getBoard()[p.r][p.c+i].getFill() == true)
 				                break;
 				        }
 					}
@@ -393,12 +393,14 @@ public class Moves {
 				                }else{
 				                    Board.getBoard()[p.r-i][p.c].setBackground(Color.RED);
 				                }
-				            }else if(Board.getBoard()[p.r-i][p.c].getFill() == true)
+				            }else if(p.r-i >= 0 && Board.getBoard()[p.r-i][p.c].getFill() == true)
 				                break;
 				          }
 				    }
 				  }
-			        for(int rr = p.r+1;rr<8;rr++){
+				  if(!(n[3] < 0)) {
+					if(n[3] == 0)  {
+			         for(int rr = p.r+1;rr<Board.getBoard().length;rr++){
 			            if(p.isValidMove(rr,p.c)){
 			                if(Board.getBoard()[rr][p.c].getFill() == true){
 			                    if(Board.getBoard()[rr][p.c].getPiece().getTeam() != p.team){
@@ -411,8 +413,26 @@ public class Moves {
 			                }
 			            }else if(Board.getBoard()[rr][p.c].getFill() == true)
 			                break;
-			        }
-			        for(int cc = p.c-1;cc>=0;cc--){
+			         }
+				    }else {
+				    	for(int i = 1;i<n[3];i++){
+				            if(p.isValidMove(p.r+i,p.c)) {
+				                if(Board.getBoard()[p.r+i][p.c].getFill() == true){
+				                    if(Board.getBoard()[p.r+i][p.c].getPiece().getTeam() != p.team){
+				                        Board.getBoard()[p.r+i][p.c].setBackground(Color.RED);
+				                    }
+				                    break;
+				                }else{
+				                    Board.getBoard()[p.r+i][p.c].setBackground(Color.RED);
+				                }
+				            }else if(p.r+i < Board.getBoard().length && Board.getBoard()[p.r+i][p.c].getFill() == true)
+				                break;
+				          }
+				    	}
+				  }
+				  if(!(n[2] < 0)) {
+					if(n[2] == 0)  {
+			         for(int cc = p.c-1;cc>=0;cc--){
 			            if(p.isValidMove(p.r,cc)){
 			                if(Board.getBoard()[p.r][cc].getFill() == true){
 			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
@@ -425,7 +445,25 @@ public class Moves {
 			            }else if(Board.getBoard()[p.r][cc].getFill() == true)
 			                break;
 			        }
-			        for(int cc = p.c+1;cc<8;cc++){
+				   }else {
+					   for(int i = 1;i<n[2];i++){
+				            if(p.isValidMove(p.r,p.c-i)) {
+				                if(Board.getBoard()[p.r][p.c-i].getFill() == true){
+				                    if(Board.getBoard()[p.r][p.c-i].getPiece().getTeam() != p.team){
+				                        Board.getBoard()[p.r][p.c-i].setBackground(Color.RED);
+				                    }
+				                    break;
+				                }else{
+				                    Board.getBoard()[p.r][p.c-i].setBackground(Color.RED);
+				                }
+				            }else if(Board.getBoard()[p.r][p.c-i].getFill() == true)
+				                break;
+				          }
+				    }
+				  }
+				  if(!(n[0] < 0)) {
+				    if(n[0] == 0)  {
+			         for(int cc = p.c+1;cc<Board.getBoard()[0].length;cc++){
 			            if(p.isValidMove(p.r,cc)){
 			                if(Board.getBoard()[p.r][cc].getFill() == true){
 			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
@@ -438,7 +476,22 @@ public class Moves {
 			            }else if(Board.getBoard()[p.r][cc].getFill() == true)
 			                break;
 			        }
-			});
+				    }else {
+				    	 for(int i = 1;i<n[0];i++){
+					            if(p.isValidMove(p.r,p.c+i)) {
+					                if(Board.getBoard()[p.r][p.c+i].getFill() == true){
+					                    if(Board.getBoard()[p.r][p.c+i].getPiece().getTeam() != p.team){
+					                        Board.getBoard()[p.r][p.c+i].setBackground(Color.RED);
+					                    }
+					                    break;
+					                }else{
+					                    Board.getBoard()[p.r][p.c+i].setBackground(Color.RED);
+					                }
+					            }else if(Board.getBoard()[p.r][p.c+i].getFill() == true)
+					                break;
+					          }
+				    }
+				  }});
 				
 			
 			

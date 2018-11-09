@@ -61,6 +61,8 @@ public abstract class Piece
     }
 
     protected boolean isValidMove(int rr, int cc){
+    	if(rr < 0 || rr >= Board.getBoard().length || cc < 0 || cc >= Board.getBoard()[0].length)
+    		return false;
         Board.updateDangerBoard();
         Space whiteKing = null;
         Space blackKing = null;

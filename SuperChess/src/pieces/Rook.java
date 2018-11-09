@@ -8,7 +8,7 @@ public class Rook extends Piece
 	
     public Rook(int r, int c,int t){
         super(r,c,t);
-        moves = new Moves[] {Moves.Move.Orthogonal(this,0,0,0,0)};
+        moves = new Moves[] {Moves.Move.Orthogonal(this,2,2,2,2)};
         if(team == 1)
             loadImage(dir + "res/images/BlackRook.png");
         else
@@ -16,7 +16,7 @@ public class Rook extends Piece
     }
 
     public void getMoves(){
-        
+        moves[0].getMoves(Board.staticBoard);
     }
 
     public boolean hasValidMove(){
