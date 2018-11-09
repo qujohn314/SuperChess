@@ -16,115 +16,11 @@ public class Rook extends Piece
     }
 
     public void getMoves(){
-        for(int rr = r-1;rr>=0;rr--){
-            if(isValidMove(rr,c))
-                if(Board.getBoard()[rr][c].getFill() == true){
-                    if(Board.getBoard()[rr][c].getPiece().getTeam() != team){
-                        Board.getBoard()[rr][c].setBackground(Color.RED);
-                    }
-                    break;
-                }else{
-                    Board.getBoard()[rr][c].setBackground(Color.RED);
-                }
-            else if(Board.getBoard()[rr][c].getFill() == true)
-                break;
-        }
-        for(int rr = r+1;rr<8;rr++){
-            if(isValidMove(rr,c)){
-                if(Board.getBoard()[rr][c].getFill() == true){
-                    if(Board.getBoard()[rr][c].getPiece().getTeam() != team){
-                        Board.getBoard()[rr][c].setBackground(Color.RED);
-                    }
-                    break;
-                }
-                else{
-                    Board.getBoard()[rr][c].setBackground(Color.RED);
-                }
-            }else if(Board.getBoard()[rr][c].getFill() == true)
-                break;
-        }
-        for(int cc = c-1;cc>=0;cc--){
-            if(isValidMove(r,cc)){
-                if(Board.getBoard()[r][cc].getFill() == true){
-                    if(Board.getBoard()[r][cc].getPiece().getTeam() != team){
-                        Board.getBoard()[r][cc].setBackground(Color.RED);
-                    }
-                    break;
-                }else{
-                    Board.getBoard()[r][cc].setBackground(Color.RED);
-                }
-            }else if(Board.getBoard()[r][cc].getFill() == true)
-                break;
-        }
-        for(int cc = c+1;cc<8;cc++){
-            if(isValidMove(r,cc)){
-                if(Board.getBoard()[r][cc].getFill() == true){
-                    if(Board.getBoard()[r][cc].getPiece().getTeam() != team){
-                        Board.getBoard()[r][cc].setBackground(Color.RED);
-                    }
-                    break;
-                }else{
-                    Board.getBoard()[r][cc].setBackground(Color.RED);
-                }
-            }else if(Board.getBoard()[r][cc].getFill() == true)
-                break;
-        }
+        
     }
 
     public boolean hasValidMove(){
-        for(int rr = r-1;rr>=0;rr--){
-            if(isValidMove(rr,c))
-                if(Board.getBoard()[rr][c].getFill() == true){
-                    if(Board.getBoard()[rr][c].getPiece().getTeam() != team){
-                        return true;
-                    }
-                    break;
-                }else{
-                    return true;
-                }
-            else if(Board.getBoard()[rr][c].getFill() == true)
-                break;
-        }
-        for(int rr = r+1;rr<8;rr++){
-            if(isValidMove(rr,c))
-                if(Board.getBoard()[rr][c].getFill() == true){
-                    if(Board.getBoard()[rr][c].getPiece().getTeam() != team){
-                        return true;
-                    }
-                    break;
-                }else{
-                    return true;
-                }
-            else if(Board.getBoard()[rr][c].getFill() == true)
-                break;
-        }
-        for(int cc = c-1;cc>=0;cc--){
-            if(isValidMove(r,cc))
-                if(Board.getBoard()[r][cc].getFill() == true){
-                    if(Board.getBoard()[r][cc].getPiece().getTeam() != team){
-                        return true;
-                    }
-                    break;
-                }else{
-                    return true;
-                }
-            else if(Board.getBoard()[r][cc].getFill() == true)
-                break;
-        }
-        for(int cc = c+1;cc<8;cc++){
-            if(isValidMove(r,cc))
-                if(Board.getBoard()[r][cc].getFill() == true){
-                    if(Board.getBoard()[r][cc].getPiece().getTeam() != team){
-                        return true;
-                    }
-                    break;
-                }else{
-                    return true;
-                }
-            else if(Board.getBoard()[r][cc].getFill() == true)
-                break;
-        }
-        return false;
+        return moves[0].validSpaces();
     }
 
     public void updateSpaces(){

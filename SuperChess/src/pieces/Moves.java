@@ -1,14 +1,18 @@
 package pieces;
 
+import java.awt.Color;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+
 
 import gui.Board;
 
 public class Moves {
 	
-	private Consumer<Board> spaceUpdate,fakeSpaceUpdate,validity,spots;
+	private Consumer<Board> spaceUpdate,fakeSpaceUpdate,spots;
+	private BooleanSupplier validity;
 
-	private Moves(Consumer<Board> real,Consumer<Board> fake,Consumer<Board> valid,Consumer<Board> moves) {
+	private Moves(Consumer<Board> real,Consumer<Board> fake,BooleanSupplier valid,Consumer<Board> moves) {
 		spaceUpdate = real;
 		fakeSpaceUpdate = fake;
 		validity = valid;
@@ -23,14 +27,17 @@ public class Moves {
 		fakeSpaceUpdate.accept(b);
 	}
 	
-	public void validSpaces(Board b) {
-		validity.accept(b);
+	public boolean validSpaces() {
+		return validity.getAsBoolean();
 	}
 	
 	public void getMoves(Board b) {
 		spots.accept(b);
 	}
 	
+	public static void test() {
+		
+	}
 	
 	public static class Move {
 		
@@ -43,7 +50,7 @@ public class Moves {
 		 * @return orthoganal moves
 		 */
 		public static Moves Orthogonal(Piece p,int...n) {
-			return new Moves(br -> {
+			return new Moves(br -> { //UPDATING REAL BOARD
 				if(!(n[0] < 0)) {
 					if(n[0] == 0) {
 						for(int cc = p.c+1;cc<Board.getBoard()[0].length;cc++) {
@@ -137,7 +144,7 @@ public class Moves {
 									Board.getBoard()[p.r-i][p.c].setDanger(p);
 					}
 				}	
-			}, bf ->  {
+			}, bf ->  { //UPDATING HIDDEN BOARD
 				if(!(n[0] < 0)) {
 					if(n[0] == 0) {
 						for(int cc = p.c+1;cc<Board.getDangerBoard()[0].length;cc++) {
@@ -235,10 +242,202 @@ public class Moves {
 					}
 				}
 				
-			}, v -> {
-			
-			}, s -> {
-				
+			}, () -> { //CHECKING FOR VALID MOVES
+			  if(!(n[1] < 0)) {
+				if(n[1] == 0)  {
+				 for(int rr = p.r-1;rr>=0;rr--){
+			            if(p.isValidMove(rr,p.c))
+			                if(Board.getBoard()[rr][p.c].getFill() == true){
+			                    if(Board.getBoard()[rr][p.c].getPiece().getTeam() != p.team){
+			                        return true;
+			                    }
+			                    break;
+			                }else{
+			                    return true;
+			                }
+			            else if(Board.getBoard()[rr][p.c].getFill() == true)
+			                break;
+			        }
+				}else {
+					for(int i = 1;i<=n[1];i++){
+			            if(p.isValidMove(p.r-i,p.c))
+			                if(Board.getBoard()[p.r-i][p.c].getFill() == true){
+			                    if(Board.getBoard()[p.r-i][p.c].getPiece().getTeam() != p.team){
+			                        return true;
+			                    }
+			                    break;
+			                }else{
+			                    return true;
+			                }
+			            else if(Board.getBoard()[p.r-i][p.c].getFill() == true)
+			                break;
+			        }
+				}
+			  }if(!(n[3] < 0)) {
+					if(n[3] == 0) {
+			        for(int rr = p.r+1;rr<Board.getBoard().length;rr++){
+			            if(p.isValidMove(rr,p.c))
+			                if(Board.getBoard()[rr][p.c].getFill() == true){
+			                    if(Board.getBoard()[rr][p.c].getPiece().getTeam() != p.team){
+			                        return true;
+			                    }
+			                    break;
+			                }else{
+			                    return true;
+			                }
+			            else if(Board.getBoard()[rr][p.c].getFill() == true)
+			                break;
+			        }
+				  }else {
+					  for(int i = 1;i<=n[3];i++){
+				            if(p.isValidMove(p.r+i,p.c))
+				                if(Board.getBoard()[p.r+i][p.c].getFill() == true){
+				                    if(Board.getBoard()[p.r+i][p.c].getPiece().getTeam() != p.team){
+				                        return true;
+				                    }
+				                    break;
+				                }else{
+				                    return true;
+				                }
+				            else if(Board.getBoard()[p.r+i][p.c].getFill() == true)
+				                break;
+				        }
+				  }
+			    }
+			    if(!(n[2] < 0)) {
+					if(n[2] == 0) {
+			          for(int cc = p.c-1;cc>=0;cc--){
+			            if(p.isValidMove(p.r,cc))
+			                if(Board.getBoard()[p.r][cc].getFill() == true){
+			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
+			                        return true;
+			                    }
+			                    break;
+			                }else{
+			                    return true;
+			                }
+			            else if(Board.getBoard()[p.r][cc].getFill() == true)
+			                break;
+			        }
+				  }else {
+					  for(int i = 1;i<=n[2];i++){
+				            if(p.isValidMove(p.r,p.c-i))
+				                if(Board.getBoard()[p.r][p.c-i].getFill() == true){
+				                    if(Board.getBoard()[p.r][p.c-i].getPiece().getTeam() != p.team){
+				                        return true;
+				                    }
+				                    break;
+				                }else{
+				                    return true;
+				                }
+				            else if(Board.getBoard()[p.r][p.c-i].getFill() == true)
+				                break;
+				        }
+				   }
+			     }
+			     if(!(n[0] < 0)) {
+					if(n[0] == 0) {
+			        for(int cc = p.c+1;cc<Board.getBoard()[0].length;cc++){
+			            if(p.isValidMove(p.r,cc))
+			                if(Board.getBoard()[p.r][cc].getFill() == true){
+			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
+			                        return true;
+			                    }
+			                    break;
+			                }else{
+			                    return true;
+			                }
+			            else if(Board.getBoard()[p.r][cc].getFill() == true)
+			                break;
+			        }
+			        	
+					}else {
+						for(int i = 1;i<=n[0];i++){
+				            if(p.isValidMove(p.r,p.c+i))
+				                if(Board.getBoard()[p.r][p.c+i].getFill() == true){
+				                    if(Board.getBoard()[p.r][p.c+i].getPiece().getTeam() != p.team){
+				                        return true;
+				                    }
+				                    break;
+				                }else{
+				                    return true;
+				                }
+				            else if(Board.getBoard()[p.r][p.c+i].getFill() == true)
+				                break;
+				        }
+					}
+				}return false;}, s -> { //GETTING MOVES
+				  if(!(n[1] < 0)) {
+					 if(n[1] == 0)  {
+					 for(int rr = p.r-1;rr>=0;rr--){
+			            if(p.isValidMove(rr,p.c)) {
+			                if(Board.getBoard()[rr][p.c].getFill() == true){
+			                    if(Board.getBoard()[rr][p.c].getPiece().getTeam() != p.team){
+			                        Board.getBoard()[rr][p.c].setBackground(Color.RED);
+			                    }
+			                    break;
+			                }else{
+			                    Board.getBoard()[rr][p.c].setBackground(Color.RED);
+			                }
+			            }else if(Board.getBoard()[rr][p.c].getFill() == true)
+			                break;
+			          }
+				    }else {
+				    	for(int i = 1;i<n[1];i++){
+				            if(p.isValidMove(p.r-i,p.c)) {
+				                if(Board.getBoard()[p.r-i][p.c].getFill() == true){
+				                    if(Board.getBoard()[p.r-i][p.c].getPiece().getTeam() != p.team){
+				                        Board.getBoard()[p.r-i][p.c].setBackground(Color.RED);
+				                    }
+				                    break;
+				                }else{
+				                    Board.getBoard()[p.r-i][p.c].setBackground(Color.RED);
+				                }
+				            }else if(Board.getBoard()[p.r-i][p.c].getFill() == true)
+				                break;
+				          }
+				    }
+				  }
+			        for(int rr = p.r+1;rr<8;rr++){
+			            if(p.isValidMove(rr,p.c)){
+			                if(Board.getBoard()[rr][p.c].getFill() == true){
+			                    if(Board.getBoard()[rr][p.c].getPiece().getTeam() != p.team){
+			                        Board.getBoard()[rr][p.c].setBackground(Color.RED);
+			                    }
+			                    break;
+			                }
+			                else{
+			                    Board.getBoard()[rr][p.c].setBackground(Color.RED);
+			                }
+			            }else if(Board.getBoard()[rr][p.c].getFill() == true)
+			                break;
+			        }
+			        for(int cc = p.c-1;cc>=0;cc--){
+			            if(p.isValidMove(p.r,cc)){
+			                if(Board.getBoard()[p.r][cc].getFill() == true){
+			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
+			                        Board.getBoard()[p.r][cc].setBackground(Color.RED);
+			                    }
+			                    break;
+			                }else{
+			                    Board.getBoard()[p.r][cc].setBackground(Color.RED);
+			                }
+			            }else if(Board.getBoard()[p.r][cc].getFill() == true)
+			                break;
+			        }
+			        for(int cc = p.c+1;cc<8;cc++){
+			            if(p.isValidMove(p.r,cc)){
+			                if(Board.getBoard()[p.r][cc].getFill() == true){
+			                    if(Board.getBoard()[p.r][cc].getPiece().getTeam() != p.team){
+			                        Board.getBoard()[p.r][cc].setBackground(Color.RED);
+			                    }
+			                    break;
+			                }else{
+			                    Board.getBoard()[p.r][cc].setBackground(Color.RED);
+			                }
+			            }else if(Board.getBoard()[p.r][cc].getFill() == true)
+			                break;
+			        }
 			});
 				
 			
