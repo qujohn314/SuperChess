@@ -40,6 +40,171 @@ public class Moves {
 	}
 	
 	public static class Move {
+		/**to be documented
+		 * 
+		 * @param p
+		 * @param n
+		 * @return
+		 */
+		public static Moves diagonal(Piece p,int...n) {
+				return new Moves(br -> {
+					int rr = p.r;
+			        int cc = p.c;
+			        int i = 1;
+			    if(!(n[0] < 0)) {
+				  if(n[0] == 0) {
+			        while(rr-1 >= 0 && cc+1 < Board.getBoard()[0].length){
+			            rr--;
+			            cc++;
+			            if(Board.getBoard()[rr][cc].getFill() == true){
+			                Board.getBoard()[rr][cc].setDanger(p);
+			                if(rr-1 >= 0 && cc + 1 < Board.getBoard()[0].length  && Board.getBoard()[rr][cc].getPiece() instanceof King)
+			                    Board.getBoard()[rr-1][cc+1].setDanger(p);
+			                break;
+			            }else{
+			                Board.getBoard()[rr][cc].setDanger(p);
+			            }
+			        }
+				  }else {
+					  i++;
+					  while(i <= n[0] && p.r-i >= 0 && p.c+i < Board.getBoard()[0].length){
+						 
+				            if(Board.getBoard()[p.r-i][p.c+i].getFill() == true){
+				                Board.getBoard()[p.r-i][p.c+i].setDanger(p);
+				                if(i<n[0] && p.r-i-1 >= 0 && p.c + i + 1< Board.getBoard()[0].length  && Board.getBoard()[p.r-i][p.c+i].getPiece() instanceof King)
+				                    Board.getBoard()[p.r-i-1][p.c+i+1].setDanger(p);
+				                i++;
+				                break;
+				            }else{
+				                Board.getBoard()[p.r-i][p.c+i].setDanger(p);
+				            }
+				            i++;
+				        }
+				  }
+			    }
+			        rr = p.r;
+			        cc = p.c;
+			        i = 0;
+			        if(!(n[1] < 0)) {
+						  if(n[1] == 0) {
+					        while(rr+1 < Board.getBoard().length && cc+1 < Board.getBoard()[0].length){
+					            rr++;
+					            cc++;
+					            if(Board.getBoard()[rr][cc].getFill() == true){
+					                Board.getBoard()[rr][cc].setDanger(p);
+					                if(rr+1 < Board.getBoard().length && cc + 1 < Board.getBoard()[0].length  && Board.getBoard()[rr][cc].getPiece() instanceof King)
+					                    Board.getBoard()[rr+1][cc+1].setDanger(p);
+					                break;
+					            }else{
+					                Board.getBoard()[rr][cc].setDanger(p);
+					            }
+					        }
+						  }else {
+							  i++;
+							  while(i <= n[1] && p.r+i < Board.getBoard().length && p.c+i < Board.getBoard()[0].length){
+								  
+						            if(Board.getBoard()[p.r+i][p.c+i].getFill() == true){
+						                Board.getBoard()[p.r+i][p.c+i].setDanger(p);
+						                if(i<n[1] && p.r+i+1 < Board.getBoard().length && p.c + i + 1< Board.getBoard()[0].length  && Board.getBoard()[p.r+i][p.c+i].getPiece() instanceof King)
+						                    Board.getBoard()[p.r+i+1][p.c+i+1].setDanger(p);
+						                i++;
+						                break;
+						            }else{
+						                Board.getBoard()[p.r+i][p.c+i].setDanger(p);
+						            }
+						            i++;
+						        }
+						  }
+					    }
+			        rr = p.r;
+			        cc = p.c;
+			        i = 0;
+			        	if(!(n[2] < 0)) {
+						  if(n[2] == 0) {
+					        while(rr-1 >= 0 && cc-1 >= 0){
+					            rr--;
+					            cc--;
+					            if(Board.getBoard()[rr][cc].getFill() == true){
+					                Board.getBoard()[rr][cc].setDanger(p);
+					                if(rr-1 >= 0 && cc - 1 >= 0  && Board.getBoard()[rr][cc].getPiece() instanceof King)
+					                    Board.getBoard()[rr-1][cc-1].setDanger(p);
+					                break;
+					            }else{
+					                Board.getBoard()[rr][cc].setDanger(p);
+					            }
+					        }
+						  }else {
+							  i++;
+							  while(i <= n[2] && p.r-i >= 0 && p.c-i >= 0){
+								  
+						            if(Board.getBoard()[p.r-i][p.c-i].getFill() == true){
+						                Board.getBoard()[p.r-i][p.c-i].setDanger(p);
+						                if(i<n[2] && p.r-i-1 >= 0 && p.c - i - 1< Board.getBoard()[0].length  && Board.getBoard()[p.r-i][p.c-i].getPiece() instanceof King)
+						                    Board.getBoard()[p.r-i-1][p.c-i-1].setDanger(p);
+						                i++;
+						                break;
+						            }else{
+						                Board.getBoard()[p.r-i][p.c-i].setDanger(p);
+						            }
+						            i++;
+						        }
+						  }
+					    }
+			        rr = p.r;
+			        cc = p.c;
+			        while(rr+1 <8 && cc-1 >= 0){
+			            rr++;
+			            cc--;
+			            if(Board.getBoard()[rr][cc].getFill() == true){
+			                Board.getBoard()[rr][cc].setDanger(p);
+			                if(rr+1 < 8 && cc - 1 >= 0 && Board.getBoard()[rr][cc].getPiece() instanceof King)
+			                    Board.getBoard()[rr+1][cc-1].setDanger(p);
+			                break;
+			            }else{
+			                Board.getBoard()[rr][cc].setDanger(p);
+			            }
+			        }
+				},bf -> {
+			
+				},() -> {
+					return true;
+				},v -> {
+			
+				}
+				);}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		 * Orthogonal Movement
@@ -57,6 +222,7 @@ public class Moves {
 							if(Board.getBoard()[p.r][cc].getFill()) {
 								if(cc+1 < Board.getBoard()[0].length && Board.getBoard()[p.r][cc].getPiece() instanceof King)
 				                    Board.getBoard()[p.r][cc+1].setDanger(p);
+								 Board.getBoard()[p.r][cc].setDanger(p);
 				                break;
 							}
 							else
@@ -66,8 +232,9 @@ public class Moves {
 						for(int i = 1;i<=n[0] && p.c+i < Board.getBoard()[0].length;i++)
 							if(p.c+i < Board.getBoard()[0].length)
 								if(Board.getBoard()[p.r][p.c+i].getFill()) {
-									if(p.c+i+1 < Board.getBoard()[0].length && Board.getBoard()[p.r][p.c+i].getPiece() instanceof King)
+									if(i<n[0]&&p.c+i+1 < Board.getBoard()[0].length && Board.getBoard()[p.r][p.c+i].getPiece() instanceof King)
 					                    Board.getBoard()[p.r][p.c+i+1].setDanger(p);
+									 Board.getBoard()[p.r][p.c+i].setDanger(p);
 					                break;
 								}
 								else
@@ -81,6 +248,7 @@ public class Moves {
 							if(Board.getBoard()[rr][p.c].getFill()) {
 								if(rr-1 >=0 && Board.getBoard()[rr][p.c].getPiece() instanceof King)
 				                    Board.getBoard()[rr-1][p.c].setDanger(p);
+								 Board.getBoard()[rr][p.c].setDanger(p);
 				                break;
 							}
 							else
@@ -89,8 +257,9 @@ public class Moves {
 						for(int i = 1;i<=n[1] && p.r-i >=0;i++)
 							if(p.r-i >= 0)
 								if(Board.getBoard()[p.r-i][p.c].getFill()) {
-									if(p.r-i-1 >= 0 && Board.getBoard()[p.r-i][p.c].getPiece() instanceof King)
+									if(i<n[1]&&p.r-i-1 >= 0 && Board.getBoard()[p.r-i][p.c].getPiece() instanceof King)
 					                    Board.getBoard()[p.r-i-1][p.c].setDanger(p);
+									 Board.getBoard()[p.r-i][p.c].setDanger(p);
 					                break;
 								}
 								else
@@ -104,6 +273,7 @@ public class Moves {
 							if(Board.getBoard()[p.r][cc].getFill()) {
 								if(cc-1 >= 0 && Board.getBoard()[p.r][cc].getPiece() instanceof King)
 				                    Board.getBoard()[p.r][cc-1].setDanger(p);
+								 Board.getBoard()[p.r][cc].setDanger(p);
 				                break;
 							}
 							else
@@ -113,8 +283,9 @@ public class Moves {
 						for(int i = 1;i<=n[2] && p.c-i>=0;i++)
 							if(p.c-i >= 0)
 								if(Board.getBoard()[p.r][p.c-i].getFill()) {
-									if(p.c-i-1 >=0 && Board.getBoard()[p.r][p.c-i].getPiece() instanceof King)
+									if(i<n[2]&&p.c-i-1 >=0 && Board.getBoard()[p.r][p.c-i].getPiece() instanceof King)
 					                    Board.getBoard()[p.r][p.c-i-1].setDanger(p);
+									 Board.getBoard()[p.r][p.c-i].setDanger(p);
 					                break;
 								}
 								else
@@ -128,6 +299,7 @@ public class Moves {
 							if(Board.getBoard()[rr][p.c].getFill()) {
 								if(rr+1 <Board.getBoard().length && Board.getBoard()[rr][p.c].getPiece() instanceof King)
 				                    Board.getBoard()[rr+1][p.c].setDanger(p);
+								 Board.getBoard()[rr][p.c].setDanger(p);
 				                break;
 							}
 							else
@@ -136,8 +308,9 @@ public class Moves {
 						for(int i = 1;i<=n[3] && p.r+i<Board.getBoard().length;i++)
 							if(p.r+i < Board.getBoard().length)
 								if(Board.getBoard()[p.r+i][p.c].getFill()) {
-									if(p.r+i+1 < Board.getBoard().length && Board.getBoard()[p.r+i][p.c].getPiece() instanceof King)
+									if(i<n[3]&&p.r+i+1 < Board.getBoard().length && Board.getBoard()[p.r+i][p.c].getPiece() instanceof King)
 					                    Board.getBoard()[p.r+i+1][p.c].setDanger(p);
+									 Board.getBoard()[p.r+i][p.c].setDanger(p);
 					                break;
 								}
 								else
@@ -149,20 +322,21 @@ public class Moves {
 					if(n[0] == 0) {
 						for(int cc = p.c+1;cc<Board.getDangerBoard()[0].length;cc++) {
 							if(Board.getDangerBoard()[p.r][cc].getFill()) {
-								Board.getDangerBoard()[p.r][cc].setDanger(p);
 								if(cc+1 < Board.getDangerBoard()[0].length && Board.getDangerBoard()[p.r][cc].getPiece() instanceof King)
 				                    Board.getDangerBoard()[p.r][cc+1].setDanger(p);
+								 Board.getDangerBoard()[p.r][cc].setDanger(p);
 				                break;
 							}
 							else
 								Board.getDangerBoard()[p.r][cc].setDanger(p);
 						}
 					}else {
-						for(int i = 1;i<=n[0];i++)
+						for(int i = 1;i<=n[0] && p.c+i < Board.getDangerBoard()[0].length;i++)
 							if(p.c+i < Board.getDangerBoard()[0].length)
 								if(Board.getDangerBoard()[p.r][p.c+i].getFill()) {
-									if(p.c+i+1 < Board.getDangerBoard()[0].length && Board.getDangerBoard()[p.r][p.c+i].getPiece() instanceof King)
+									if(i<n[0]&&p.c+i+1 < Board.getDangerBoard()[0].length && Board.getDangerBoard()[p.r][p.c+i].getPiece() instanceof King)
 					                    Board.getDangerBoard()[p.r][p.c+i+1].setDanger(p);
+									 Board.getDangerBoard()[p.r][p.c+i].setDanger(p);
 					                break;
 								}
 								else
@@ -174,43 +348,46 @@ public class Moves {
 					if(n[1] == 0) {
 						for(int rr = p.r-1;rr>=0;rr--)
 							if(Board.getDangerBoard()[rr][p.c].getFill()) {
-								Board.getDangerBoard()[rr][p.c].setDanger(p);
 								if(rr-1 >=0 && Board.getDangerBoard()[rr][p.c].getPiece() instanceof King)
 				                    Board.getDangerBoard()[rr-1][p.c].setDanger(p);
+								 Board.getDangerBoard()[rr][p.c].setDanger(p);
 				                break;
 							}
 							else
 								Board.getDangerBoard()[rr][p.c].setDanger(p);
 					}else {
-						for(int i = 1;i<=n[1];i++)
+						for(int i = 1;i<=n[1] && p.r-i >=0;i++)
 							if(p.r-i >= 0)
 								if(Board.getDangerBoard()[p.r-i][p.c].getFill()) {
-									if(p.r-i-1 >= 0 && Board.getDangerBoard()[p.r-i][p.c].getPiece() instanceof King)
+									if(i<n[1]&&p.r-i-1 >= 0 && Board.getDangerBoard()[p.r-i][p.c].getPiece() instanceof King)
 					                    Board.getDangerBoard()[p.r-i-1][p.c].setDanger(p);
+									 Board.getDangerBoard()[p.r-i][p.c].setDanger(p);
 					                break;
 								}
 								else
 									Board.getDangerBoard()[p.r-i][p.c].setDanger(p);
 					}
+				   
 				}
 				if(!(n[2] < 0)) {
 					if(n[2] == 0) {
 						for(int cc = p.c-1;cc>=0;cc--) {
 							if(Board.getDangerBoard()[p.r][cc].getFill()) {
-								Board.getDangerBoard()[p.r][cc].setDanger(p);
 								if(cc-1 >= 0 && Board.getDangerBoard()[p.r][cc].getPiece() instanceof King)
 				                    Board.getDangerBoard()[p.r][cc-1].setDanger(p);
+								 Board.getDangerBoard()[p.r][cc].setDanger(p);
 				                break;
 							}
 							else
 								Board.getDangerBoard()[p.r][cc].setDanger(p);
 						}
 					}else {
-						for(int i = 1;i<=n[2];i++)
+						for(int i = 1;i<=n[2] && p.c-i>=0;i++)
 							if(p.c-i >= 0)
 								if(Board.getDangerBoard()[p.r][p.c-i].getFill()) {
-									if(p.c-i-1 >=0 && Board.getDangerBoard()[p.r][p.c-i].getPiece() instanceof King)
+									if(i<n[2]&&p.c-i-1 >=0 && Board.getDangerBoard()[p.r][p.c-i].getPiece() instanceof King)
 					                    Board.getDangerBoard()[p.r][p.c-i-1].setDanger(p);
+									 Board.getDangerBoard()[p.r][p.c-i].setDanger(p);
 					                break;
 								}
 								else
@@ -222,25 +399,26 @@ public class Moves {
 					if(n[3] == 0) {
 						for(int rr = p.r+1;rr<Board.getDangerBoard().length;rr++)
 							if(Board.getDangerBoard()[rr][p.c].getFill()) {
-								Board.getDangerBoard()[rr][p.c].setDanger(p);
 								if(rr+1 <Board.getDangerBoard().length && Board.getDangerBoard()[rr][p.c].getPiece() instanceof King)
 				                    Board.getDangerBoard()[rr+1][p.c].setDanger(p);
+								 Board.getDangerBoard()[rr][p.c].setDanger(p);
 				                break;
 							}
 							else
 								Board.getDangerBoard()[rr][p.c].setDanger(p);
 					}else {
-						for(int i = 1;i<=n[3];i++)
+						for(int i = 1;i<=n[3] && p.r+i<Board.getDangerBoard().length;i++)
 							if(p.r+i < Board.getDangerBoard().length)
 								if(Board.getDangerBoard()[p.r+i][p.c].getFill()) {
-									if(p.r+i+1 < Board.getDangerBoard().length && Board.getDangerBoard()[p.r+i][p.c].getPiece() instanceof King)
+									if(i<n[3]&&p.r+i+1 < Board.getDangerBoard().length && Board.getDangerBoard()[p.r+i][p.c].getPiece() instanceof King)
 					                    Board.getDangerBoard()[p.r+i+1][p.c].setDanger(p);
+									 Board.getDangerBoard()[p.r+i][p.c].setDanger(p);
 					                break;
 								}
 								else
 									Board.getDangerBoard()[p.r+i][p.c].setDanger(p);
 					}
-				}
+				}	
 				
 			}, () -> { //CHECKING FOR VALID MOVES
 			  if(!(n[1] < 0)) {
@@ -383,7 +561,7 @@ public class Moves {
 			                break;
 			          }
 				    }else {
-				    	for(int i = 1;i<n[1];i++){
+				    	for(int i = 1;i<=n[1];i++){
 				            if(p.isValidMove(p.r-i,p.c)) {
 				                if(Board.getBoard()[p.r-i][p.c].getFill() == true){
 				                    if(Board.getBoard()[p.r-i][p.c].getPiece().getTeam() != p.team){
@@ -415,7 +593,7 @@ public class Moves {
 			                break;
 			         }
 				    }else {
-				    	for(int i = 1;i<n[3];i++){
+				    	for(int i = 1;i<=n[3];i++){
 				            if(p.isValidMove(p.r+i,p.c)) {
 				                if(Board.getBoard()[p.r+i][p.c].getFill() == true){
 				                    if(Board.getBoard()[p.r+i][p.c].getPiece().getTeam() != p.team){
@@ -446,7 +624,7 @@ public class Moves {
 			                break;
 			        }
 				   }else {
-					   for(int i = 1;i<n[2];i++){
+					   for(int i = 1;i<=n[2];i++){
 				            if(p.isValidMove(p.r,p.c-i)) {
 				                if(Board.getBoard()[p.r][p.c-i].getFill() == true){
 				                    if(Board.getBoard()[p.r][p.c-i].getPiece().getTeam() != p.team){
@@ -456,7 +634,7 @@ public class Moves {
 				                }else{
 				                    Board.getBoard()[p.r][p.c-i].setBackground(Color.RED);
 				                }
-				            }else if(Board.getBoard()[p.r][p.c-i].getFill() == true)
+				            }else if(p.c-i >= 0 && Board.getBoard()[p.r][p.c-i].getFill() == true)
 				                break;
 				          }
 				    }
@@ -477,7 +655,7 @@ public class Moves {
 			                break;
 			        }
 				    }else {
-				    	 for(int i = 1;i<n[0];i++){
+				    	 for(int i = 1;i<=n[0];i++){
 					            if(p.isValidMove(p.r,p.c+i)) {
 					                if(Board.getBoard()[p.r][p.c+i].getFill() == true){
 					                    if(Board.getBoard()[p.r][p.c+i].getPiece().getTeam() != p.team){
@@ -487,7 +665,7 @@ public class Moves {
 					                }else{
 					                    Board.getBoard()[p.r][p.c+i].setBackground(Color.RED);
 					                }
-					            }else if(Board.getBoard()[p.r][p.c+i].getFill() == true)
+					            }else if(p.c+i < Board.getBoard()[0].length && Board.getBoard()[p.r][p.c+i].getFill() == true)
 					                break;
 					          }
 				    }
