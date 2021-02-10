@@ -1,2 +1,2 @@
 # SuperChess
-The ultimate chess sandbox
+The ultimate chess sandbox (WIP)
